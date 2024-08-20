@@ -51,13 +51,6 @@ namespace RegistroPessoas.Controllers
         [HttpPut]
         public async Task<IActionResult> PutPeople([FromBody] Person person)
         {
-            var personexisting = await _context.Person.FindAsync(person.Id);
-            
-            if(personexisting == null)
-            {
-                return NotFound("Person not found.");
-
-            }
             try
             {
                 _context.Update(person);
