@@ -23,11 +23,19 @@ namespace RegistroPessoas.Models
         [Required(ErrorMessage ="The Sex field is required.")]
         public char Sex { get; set; }
 
+        [Required(ErrorMessage = " The HourlyPay field is required.")]
+        public decimal HourlyPay { get; set; }
+
+        [Required(ErrorMessage = "The HoursWorked field is required. ")]
+        public TimeSpan HoursWorked { get; set; }
+
+        public decimal DailyPayment => (decimal)HoursWorked.TotalHours * HourlyPay;
+
         public Person()
         {
         }
 
-        public Person(Guid id, string name, DateTime dateBirth, string? email, string? celphone, char sex)
+        public Person(Guid id, string name, DateTime dateBirth, string? email, string? celphone, char sex, decimal hourlyPay)
         {
             Id = id;
             Name = name;
@@ -35,6 +43,7 @@ namespace RegistroPessoas.Models
             Email = email;
             Celphone = celphone;
             Sex = sex;
+            HourlyPay = hourlyPay;
         }
     }
 }

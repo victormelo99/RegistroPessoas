@@ -12,7 +12,7 @@ using RegistroPessoas.Data;
 namespace RegistroPessoas.Migrations
 {
     [DbContext(typeof(RegistroPessoasDbContext))]
-    [Migration("20240819172438_Initial")]
+    [Migration("20240820180254_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -40,13 +40,19 @@ namespace RegistroPessoas.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
+                    b.Property<decimal>("HourlyPay")
+                        .HasColumnType("numeric");
+
+                    b.Property<TimeSpan>("HoursWorked")
+                        .HasColumnType("interval");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
-                    b.Property<int>("Sex")
-                        .HasColumnType("integer");
+                    b.Property<char>("Sex")
+                        .HasColumnType("character(1)");
 
                     b.HasKey("Id");
 

@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RegistroPessoas.Data;
 using RegistroPessoas.Models;
+using RegistroPessoas.Service;
 using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace RegistroPessoas.Controllers
@@ -10,11 +11,13 @@ namespace RegistroPessoas.Controllers
 
     public class PersonController : Controller
     {
-        private RegistroPessoasDbContext _context;
+        private readonly RegistroPessoasDbContext _context;
+        private readonly PaymentService _service;
 
-        public PersonController(RegistroPessoasDbContext context)
+        public PersonController(RegistroPessoasDbContext context, PaymentService service)
         {
             _context = context;
+            _service = service;
         }
 
         [HttpGet]
@@ -37,6 +40,8 @@ namespace RegistroPessoas.Controllers
         {
             try
             {
+                var dailyPayment = _service.CalculateDailyPayment(person);
+
                 await _context.AddAsync(person);
                 var result = await _context.SaveChangesAsync();
 
@@ -51,15 +56,10 @@ namespace RegistroPessoas.Controllers
         [HttpPut]
         public async Task<IActionResult> PutPeople([FromBody] Person person)
         {
-            var personexisting = await _context.Person.FindAsync(person.Id);
-            
-            if(personexisting == null)
-            {
-                return NotFound("Person not found.");
-
-            }
             try
             {
+                var dailyPayment = _service.CalculateDailyPayment(person);
+
                 _context.Update(person);
                 var result = await _context.SaveChangesAsync();
 

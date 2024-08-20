@@ -37,6 +37,12 @@ namespace RegistroPessoas.Migrations
                     b.Property<string>("Email")
                         .HasColumnType("text");
 
+                    b.Property<decimal>("HourlyPay")
+                        .HasColumnType("numeric");
+
+                    b.Property<TimeSpan>("HoursWorked")
+                        .HasColumnType("interval");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasMaxLength(150)

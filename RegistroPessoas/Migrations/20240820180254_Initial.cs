@@ -20,7 +20,9 @@ namespace RegistroPessoas.Migrations
                     DateBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
                     Email = table.Column<string>(type: "text", nullable: true),
                     Celphone = table.Column<string>(type: "text", nullable: true),
-                    Sex = table.Column<int>(type: "integer", nullable: false)
+                    Sex = table.Column<char>(type: "character(1)", nullable: false),
+                    HourlyPay = table.Column<decimal>(type: "numeric", nullable: false),
+                    HoursWorked = table.Column<TimeSpan>(type: "interval", nullable: false)
                 },
                 constraints: table =>
                 {
